@@ -4,6 +4,9 @@ import tkinter as tk
 # Utilize PIL (Python Imaging Library) to load pet images and animations 
 from PIL import Image, ImageTk
 
+# import time to determine when to execute animations
+import time
+
 # creating a window 
 root = tk.Tk()
 root.geometry('400x400')
@@ -21,10 +24,17 @@ pet_label.image = pet_image
 pet_label.pack()
 
 # main loop to update pet state 
-def update_pet(): 
-    # update pet's animations / behavior here  
-    root.after(100, update_pet)
+def animation(): 
+    frames = [Image.open('Toadpicture.png'), Image.open('toad2.jpg')]
+    # measured in milliseconds
+    duration = 200  
+    
+    for frame in frames: 
+        pet_label.config(image=ImageTk.PhotoImage(frame))
+        pet_label.update()
+        time.sleep(duration / 1000)
 
-update_pet() 
-
+   
+animation() 
+# update_pet() 
 root.mainloop() 
