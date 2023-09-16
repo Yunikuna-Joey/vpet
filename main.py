@@ -24,17 +24,22 @@ pet_label.image = pet_image
 pet_label.pack()
 
 # main loop to update pet state 
-def animation(): 
+def animation(frame_idx): 
     frames = [Image.open('Toadpicture.png'), Image.open('toad2.jpg')]
     # measured in milliseconds
     duration = 200  
-    
-    for frame in frames: 
-        pet_label.config(image=ImageTk.PhotoImage(frame))
-        pet_label.update()
-        time.sleep(duration / 1000)
+
+    pet_label.config(image=ImageTk.PhotoImage(frames[frame_idx]))   
+    pet_label.update() 
+
+    root.after(duration, animation, (frame_idx + 1) % len(frames)) 
+
+    # for frame in frames: 
+    #     pet_label.config(image=ImageTk.PhotoImage(frame))
+    #     pet_label.update()
+    #     time.sleep(duration / 1000)
 
    
-animation() 
+animation(0) 
 # update_pet() 
 root.mainloop() 
